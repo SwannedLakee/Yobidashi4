@@ -17,7 +17,6 @@ data class Chat(private val texts: MutableList<ChatMessage> = mutableListOf()) {
           ${makeContents()}
         ],
         ${if (useWebGrounding) "\"tools\": [ { \"google_search\": {} } ]," else "" }
-        ${if (useImage) "\"generationConfig\":{\"responseModalities\":[\"TEXT\",\"IMAGE\"]}," else "" }
         "safetySettings": [
             {
                 "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
@@ -32,7 +31,10 @@ data class Chat(private val texts: MutableList<ChatMessage> = mutableListOf()) {
                 "threshold": "BLOCK_ONLY_HIGH"
             }
         ],
-        "generationConfig": { "thinkingConfig": { "thinkingBudget": 0 } }
+        "generationConfig": {
+          ${if (useImage) "\"responseModalities\":[\"TEXT\",\"IMAGE\"]," else "" }
+          "thinkingConfig": { "thinkingBudget": 0 } 
+        }
       }
     """.trimIndent()
 
