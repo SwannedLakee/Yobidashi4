@@ -13,10 +13,11 @@ import androidx.compose.foundation.text.input.TextFieldBuffer
 class SingleLineTransformation : InputTransformation {
 
     override fun TextFieldBuffer.transformInput() {
-        var indexOf = asCharSequence().indexOf("\n")
+        val text = asCharSequence()
+        var indexOf = text.indexOf("\n")
         while (indexOf != -1) {
             replace(indexOf, indexOf + 1, "")
-            indexOf = asCharSequence().indexOf("\n")
+            indexOf = text.indexOf("\n")
         }
     }
 
