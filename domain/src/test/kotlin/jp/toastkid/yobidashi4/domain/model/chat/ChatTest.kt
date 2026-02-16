@@ -111,7 +111,6 @@ class ChatTest {
   "contents": [
     {"role":"user", "parts":[ { "text": 'Test \"is\" good. It\'s good.'} ]},{"role":"model", "parts":[ { "text": 'Answer'},{"inline_data":{"mime_type":"image/jpeg","data":"Image"}}  ]}
   ],
-  "generationConfig":{"responseModalities":["TEXT","IMAGE"]},
   "safetySettings": [
       {
           "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
@@ -126,7 +125,10 @@ class ChatTest {
           "threshold": "BLOCK_ONLY_HIGH"
       }
   ],
-  "generationConfig":{"thinkingConfig":{"thinkingBudget":0}}
+  "generationConfig":{
+    "responseModalities":["TEXT","IMAGE"],
+    "thinkingConfig":{"thinkingBudget":0}
+  }
 }""".trimIndent().replace(" ", "").replace("\n", ""),
             chat.makeContent(useImage = true).replace(" ", "").replace("\n", "")
         )
