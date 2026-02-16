@@ -14,10 +14,10 @@ class SingleLineTransformation : InputTransformation {
 
     override fun TextFieldBuffer.transformInput() {
         val text = asCharSequence()
-        var indexOf = text.indexOf("\n")
-        while (indexOf != -1) {
-            replace(indexOf, indexOf + 1, "")
-            indexOf = text.indexOf("\n")
+        for (i in text.length - 1 downTo 0) {
+            if (text[i] == '\n') {
+                replace(i, i + 1, "")
+            }
         }
     }
 
