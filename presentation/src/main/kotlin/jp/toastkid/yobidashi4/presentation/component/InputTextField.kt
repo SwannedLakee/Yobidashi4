@@ -8,7 +8,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.KeyboardActionHandler
 import androidx.compose.foundation.text.input.OutputTransformation
-import androidx.compose.foundation.text.input.TextFieldBuffer
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material.DropdownMenu
@@ -85,18 +84,6 @@ internal fun InputTextField(
             HoverHighlightDropdownMenuItem("Clear history", onClick = onClickClear)
         }
     }
-}
-
-private class SingleLineTransformation : InputTransformation {
-
-    override fun TextFieldBuffer.transformInput() {
-        var indexOf = asCharSequence().indexOf("\n")
-        while (indexOf != -1) {
-            replace(indexOf, indexOf + 1, "")
-            indexOf = asCharSequence().indexOf("\n")
-        }
-    }
-
 }
 
 private val emptyClearInputAction = {}
