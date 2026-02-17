@@ -58,6 +58,7 @@ _
         assertFalse(nikkei225AggregationResult.isEmpty())
         assertEquals(3, nikkei225AggregationResult.header().size)
         assertTrue(nikkei225AggregationResult.title().isNotEmpty())
+        assertEquals("Nikkei 225", nikkei225AggregatorService.label())
 
         val first = nikkei225AggregationResult.itemArrays().first()
         assertEquals("29,432.70", first[1])
