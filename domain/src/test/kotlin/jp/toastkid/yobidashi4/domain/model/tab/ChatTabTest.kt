@@ -5,6 +5,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.unmockkAll
 import jp.toastkid.yobidashi4.domain.model.chat.Chat
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -43,6 +44,15 @@ class ChatTabTest {
     @Test
     fun chat() {
         assertSame(chat, subject.chat())
+    }
+
+    @Test
+    fun scrollPosition() {
+        assertEquals(0, subject.scrollPosition())
+
+        val withNewPosition = subject.withNewPosition(2)
+
+        assertEquals(2, withNewPosition.scrollPosition())
     }
 
 }
