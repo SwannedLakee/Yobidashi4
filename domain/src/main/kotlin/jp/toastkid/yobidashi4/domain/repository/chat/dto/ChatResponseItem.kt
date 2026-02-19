@@ -15,6 +15,8 @@ data class ChatResponseItem(
 
     fun image() = image
 
+    fun sources() = sources
+
     companion object {
 
         private val ERROR = ChatResponseItem("[ERROR]", error = true)
