@@ -192,6 +192,7 @@ private fun MessageList(
                 MessageContent(
                     it.text,
                     it.image,
+                    it.sources,
                     modifier = Modifier.padding(4.dp).padding(horizontal = 4.dp).weight(0.8f)
                 )
             }
