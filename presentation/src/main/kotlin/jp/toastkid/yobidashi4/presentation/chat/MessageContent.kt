@@ -3,6 +3,7 @@ package jp.toastkid.yobidashi4.presentation.chat
 import androidx.compose.foundation.ContextMenuArea
 import androidx.compose.foundation.ContextMenuItem
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -16,11 +17,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import jp.toastkid.yobidashi4.domain.model.chat.Source
+import jp.toastkid.yobidashi4.presentation.component.HoverHighlightRow
 
 @Composable
 internal fun MessageContent(
     text: String,
     base64Image: String? = null,
+    sources: List<Source>,
     modifier: Modifier
 ) {
     val viewModel = remember { MessageContentViewModel() }
@@ -63,6 +67,20 @@ internal fun MessageContent(
                         viewModel.image(base64Image),
                         contentDescription = text,
                     )
+                }
+            }
+        }
+
+        if (sources.isNotEmpty()) {
+            Row {
+                sources.forEach { source ->
+                    HoverHighlightRow(
+                        modifier = Modifier.clickable {
+                            viewModel.openLink(source.url)
+                        }
+                    ) {
+                        Text(source.title)
+                    }
                 }
             }
         }
