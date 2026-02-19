@@ -13,6 +13,7 @@ import io.mockk.just
 import io.mockk.mockkConstructor
 import io.mockk.unmockkAll
 import io.mockk.verify
+import jp.toastkid.yobidashi4.domain.model.chat.Source
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -41,11 +42,13 @@ class MessageContentKtTest {
                 MessageContent(
                     "test\n* **test**\n* ***Good***",
                     null,
+                    listOf(Source("test", "https://www.yahoo.co.jp")),
                     Modifier
                 )
                 MessageContent(
                     "image",
                     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBASfqKgwAAAAASUVORK5CYII=",
+                    emptyList(),
                     Modifier
                 )
             }
