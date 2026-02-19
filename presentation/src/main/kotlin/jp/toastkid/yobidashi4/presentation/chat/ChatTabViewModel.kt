@@ -141,6 +141,11 @@ class ChatTabViewModel : KoinComponent {
             return
         }
 
+        if (item.sources().isNotEmpty()) {
+            val element = messages.last()
+            messages.set(messages.lastIndex, element.copy(sources = item.sources()))
+        }
+
         addText(item)
     }
 
