@@ -67,6 +67,10 @@ class MessageContentViewModel : KoinComponent {
 
     fun contextMenuState() = contextMenuState
 
+    fun openLink(url: String) {
+        mainViewModel.openUrl(url, false)
+    }
+
 }
 
 private val EMPTY_IMAGE = ImageBitmap(1, 1)
