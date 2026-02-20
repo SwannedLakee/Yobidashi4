@@ -77,9 +77,9 @@ internal fun MessageContent(
             Row {
                 sources.forEachIndexed { index, source ->
                     HoverHighlightRow(
-                        modifier = Modifier.clickable {
-                            viewModel.openLink(source.url)
-                        }.semantics { contentDescription = "$index,${source}" }
+                        modifier = Modifier
+                            .clickable { viewModel.openLink(source.url) }
+                            .semantics { contentDescription = "$index,${source}" }
                     ) {
                         Text(source.title)
                     }
