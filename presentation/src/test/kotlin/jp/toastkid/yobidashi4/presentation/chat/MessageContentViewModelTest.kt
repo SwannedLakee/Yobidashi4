@@ -126,4 +126,13 @@ class MessageContentViewModelTest {
         verify { mainViewModel.openUrl(any(), any()) }
     }
 
+    @Test
+    fun openLinkOnBackground() {
+        every { mainViewModel.openUrl(any(), any()) } just Runs
+
+        subject.openLinkOnBackground("https://www.yahoo.co.jp")
+
+        verify { mainViewModel.openUrl(any(), any()) }
+    }
+
 }
