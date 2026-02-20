@@ -13,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -73,11 +75,11 @@ internal fun MessageContent(
 
         if (sources.isNotEmpty()) {
             Row {
-                sources.forEach { source ->
+                sources.forEachIndexed { index, source ->
                     HoverHighlightRow(
                         modifier = Modifier.clickable {
                             viewModel.openLink(source.url)
-                        }
+                        }.semantics { contentDescription = "$index,${source}" }
                     ) {
                         Text(source.title)
                     }
