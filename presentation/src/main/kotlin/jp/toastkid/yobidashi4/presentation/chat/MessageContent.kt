@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.selection.DisableSelection
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -76,17 +77,21 @@ internal fun MessageContent(
         if (sources.isNotEmpty()) {
             Row {
                 sources.forEachIndexed { index, source ->
-                    HoverHighlightRow(
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .combinedClickable(
-                                enabled = true,
-                                onClick = { viewModel.openLink(source.url) },
-                                onLongClick = { viewModel.openLinkOnBackground(source.url) }
-                            )
-                            .semantics { contentDescription = "$index,${source}" }
+                    Surface(
+                        elevation = 2.dp
                     ) {
-                        Text(source.title)
+                        HoverHighlightRow(
+                            modifier = Modifier
+                                .padding(4.dp)
+                                .combinedClickable(
+                                    enabled = true,
+                                    onClick = { viewModel.openLink(source.url) },
+                                    onLongClick = { viewModel.openLinkOnBackground(source.url) }
+                                )
+                                .semantics { contentDescription = "$index,${source}" }
+                        ) {
+                            Text(source.title)
+                        }
                     }
                 }
             }
