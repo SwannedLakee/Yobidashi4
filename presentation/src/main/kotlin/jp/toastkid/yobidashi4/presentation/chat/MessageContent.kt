@@ -78,6 +78,7 @@ internal fun MessageContent(
                 sources.forEachIndexed { index, source ->
                     HoverHighlightRow(
                         modifier = Modifier
+                            .padding(4.dp)
                             .combinedClickable(
                                 enabled = true,
                                 onClick = { viewModel.openLink(source.url) },
