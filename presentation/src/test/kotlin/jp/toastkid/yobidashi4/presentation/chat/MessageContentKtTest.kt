@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import io.mockk.Runs
@@ -24,6 +25,7 @@ class MessageContentKtTest {
     fun setUp() {
         mockkConstructor(MessageContentViewModel::class)
         every { anyConstructed<MessageContentViewModel>().storeImage(any()) } just Runs
+        every { anyConstructed<MessageContentViewModel>().openLink(any()) } just Runs
         val contextMenuState = ContextMenuState()
         contextMenuState.status = ContextMenuState.Status.Open(Rect(4f, 25f, 116f, 57f))
         every { anyConstructed<MessageContentViewModel>().contextMenuState() } returns contextMenuState
@@ -37,18 +39,20 @@ class MessageContentKtTest {
     @OptIn(ExperimentalTestApi::class)
     @Test
     fun messageContent() {
+        val source = Source("test", "https://www.yahoo.co.jp")
+
         runComposeUiTest {
             setContent {
                 MessageContent(
                     "test\n* **test**\n* ***Good***",
                     null,
-                    listOf(Source("test", "https://www.yahoo.co.jp")),
+                    emptyList(),
                     Modifier
                 )
                 MessageContent(
                     "image",
                     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBASfqKgwAAAAASUVORK5CYII=",
-                    emptyList(),
+                    listOf(source),
                     Modifier
                 )
             }
@@ -56,6 +60,10 @@ class MessageContentKtTest {
             onNode(hasText("Store image")).performClick()
 
             verify { anyConstructed<MessageContentViewModel>().storeImage(any()) }
+
+            onNodeWithContentDescription("0,${source}", useUnmergedTree = true).performClick()
+
+            verify { anyConstructed<MessageContentViewModel>().openLink(any()) }
         }
     }
 
