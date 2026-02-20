@@ -4,9 +4,12 @@ import androidx.compose.foundation.ContextMenuState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.click
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.longClick
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performMouseInput
 import androidx.compose.ui.test.runComposeUiTest
 import io.mockk.Runs
 import io.mockk.every
@@ -26,6 +29,7 @@ class MessageContentKtTest {
         mockkConstructor(MessageContentViewModel::class)
         every { anyConstructed<MessageContentViewModel>().storeImage(any()) } just Runs
         every { anyConstructed<MessageContentViewModel>().openLink(any()) } just Runs
+        every { anyConstructed<MessageContentViewModel>().openLinkOnBackground(any()) } just Runs
         val contextMenuState = ContextMenuState()
         contextMenuState.status = ContextMenuState.Status.Open(Rect(4f, 25f, 116f, 57f))
         every { anyConstructed<MessageContentViewModel>().contextMenuState() } returns contextMenuState
@@ -61,9 +65,15 @@ class MessageContentKtTest {
 
             verify { anyConstructed<MessageContentViewModel>().storeImage(any()) }
 
-            onNodeWithContentDescription("0,${source}", useUnmergedTree = true).performClick()
+            onNodeWithContentDescription("0,${source}", useUnmergedTree = true)
+                .performMouseInput {
+                    enter()
+                    click()
+                    longClick()
+                }
 
             verify { anyConstructed<MessageContentViewModel>().openLink(any()) }
+            verify { anyConstructed<MessageContentViewModel>().openLinkOnBackground(any()) }
         }
     }
 
