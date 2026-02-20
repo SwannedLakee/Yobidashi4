@@ -117,4 +117,13 @@ class MessageContentViewModelTest {
         assertNotNull(subject.contextMenuState())
     }
 
+    @Test
+    fun openLink() {
+        every { mainViewModel.openUrl(any(), any()) } just Runs
+
+        subject.openLink("https://www.yahoo.co.jp")
+
+        verify { mainViewModel.openUrl(any(), any()) }
+    }
+
 }
