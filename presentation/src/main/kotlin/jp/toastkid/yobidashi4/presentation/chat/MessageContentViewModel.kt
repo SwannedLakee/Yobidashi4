@@ -71,6 +71,10 @@ class MessageContentViewModel : KoinComponent {
         mainViewModel.openUrl(url, false)
     }
 
+    fun openLinkOnBackground(url: String) {
+        mainViewModel.openUrl(url, true)
+    }
+
 }
 
 private val EMPTY_IMAGE = ImageBitmap(1, 1)
