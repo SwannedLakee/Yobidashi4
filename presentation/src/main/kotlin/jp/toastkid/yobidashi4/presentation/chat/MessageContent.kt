@@ -3,7 +3,7 @@ package jp.toastkid.yobidashi4.presentation.chat
 import androidx.compose.foundation.ContextMenuArea
 import androidx.compose.foundation.ContextMenuItem
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -78,7 +78,11 @@ internal fun MessageContent(
                 sources.forEachIndexed { index, source ->
                     HoverHighlightRow(
                         modifier = Modifier
-                            .clickable { viewModel.openLink(source.url) }
+                            .combinedClickable(
+                                enabled = true,
+                                onClick = { viewModel.openLink(source.url) },
+                                onLongClick = { viewModel.openLinkOnBackground(source.url) }
+                            )
                             .semantics { contentDescription = "$index,${source}" }
                     ) {
                         Text(source.title)
