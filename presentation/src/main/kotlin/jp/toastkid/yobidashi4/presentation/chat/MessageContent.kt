@@ -105,7 +105,7 @@ private fun SourceArea(
     )
 
     Box() {
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             sources.forEachIndexed { index, source ->
                 Surface(
                     elevation = 2.dp,
