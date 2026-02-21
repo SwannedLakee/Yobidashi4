@@ -1,6 +1,7 @@
 package jp.toastkid.yobidashi4.presentation.chat
 
 import androidx.compose.foundation.ContextMenuState
+import androidx.compose.foundation.ScrollState
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toAwtImage
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -27,6 +28,8 @@ class MessageContentViewModel : KoinComponent {
     private val imageHolder = AtomicReference<ImageBitmap>(EMPTY_IMAGE)
 
     private val contextMenuState = ContextMenuState()
+
+    private val horizontalSourceScrollState = ScrollState(0)
 
     fun lineText(listLine: Boolean, text: String): AnnotatedString {
         return keywordHighlighter(if (listLine) text.substring(2) else text)
@@ -74,6 +77,8 @@ class MessageContentViewModel : KoinComponent {
     fun openLinkOnBackground(url: String) {
         mainViewModel.openUrl(url, true)
     }
+
+    fun horizontalSourceScrollState() = horizontalSourceScrollState
 
 }
 
