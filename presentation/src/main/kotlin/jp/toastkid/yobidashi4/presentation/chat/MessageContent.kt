@@ -80,44 +80,52 @@ internal fun MessageContent(
         }
 
         if (sources.isNotEmpty()) {
-            Text(
-                "Sources",
-                fontSize = 16.sp,
-                modifier = Modifier.padding(4.dp).padding(top = 8.dp)
-            )
+            SourceArea(sources, viewModel)
+        }
+    }
+}
 
-            Box() {
-                Row {
-                    sources.forEachIndexed { index, source ->
-                        Surface(
-                            elevation = 2.dp,
-                            modifier = Modifier.padding(4.dp)
-                        ) {
-                            HoverHighlightRow(
-                                modifier = Modifier
-                                    .padding(4.dp)
-                                    .combinedClickable(
-                                        enabled = true,
-                                        onClick = { viewModel.openLink(source.url) },
-                                        onLongClick = { viewModel.openLinkOnBackground(source.url) }
-                                    )
-                                    .semantics { contentDescription = "$index,${source}" }
-                            ) {
-                                LoadIcon(
-                                    "https://${source.title}",
-                                    modifier = Modifier.padding(horizontal = 4.dp)
-                                )
-                                Text(source.title)
-                            }
-                        }
+@Composable
+private fun SourceArea(
+    sources: List<Source>,
+    viewModel: MessageContentViewModel
+) {
+    Text(
+        "Sources",
+        fontSize = 16.sp,
+        modifier = Modifier.padding(4.dp).padding(top = 8.dp)
+    )
+
+    Box() {
+        Row {
+            sources.forEachIndexed { index, source ->
+                Surface(
+                    elevation = 2.dp,
+                    modifier = Modifier.padding(4.dp)
+                ) {
+                    HoverHighlightRow(
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .combinedClickable(
+                                enabled = true,
+                                onClick = { viewModel.openLink(source.url) },
+                                onLongClick = { viewModel.openLinkOnBackground(source.url) }
+                            )
+                            .semantics { contentDescription = "$index,${source}" }
+                    ) {
+                        LoadIcon(
+                            "https://${source.title}",
+                            modifier = Modifier.padding(horizontal = 4.dp)
+                        )
+                        Text(source.title)
                     }
                 }
-
-                HorizontalScrollbar(
-                    adapter = rememberScrollbarAdapter(viewModel.horizontalSourceScrollState()),
-                    modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
-                )
             }
         }
+
+        HorizontalScrollbar(
+            adapter = rememberScrollbarAdapter(viewModel.horizontalSourceScrollState()),
+            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
+        )
     }
 }
