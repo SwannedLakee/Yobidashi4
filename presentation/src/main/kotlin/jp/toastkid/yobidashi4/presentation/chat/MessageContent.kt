@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import jp.toastkid.yobidashi4.domain.model.chat.Source
 import jp.toastkid.yobidashi4.presentation.component.HoverHighlightRow
+import jp.toastkid.yobidashi4.presentation.component.LoadIcon
 
 @Composable
 internal fun MessageContent(
@@ -97,6 +98,10 @@ internal fun MessageContent(
                                 )
                                 .semantics { contentDescription = "$index,${source}" }
                         ) {
+                            LoadIcon(
+                                "https://${source.title}",
+                                modifier = Modifier.padding(horizontal = 4.dp)
+                            )
                             Text(source.title)
                         }
                     }
