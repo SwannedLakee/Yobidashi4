@@ -4,6 +4,7 @@ import androidx.compose.foundation.ContextMenuArea
 import androidx.compose.foundation.ContextMenuItem
 import androidx.compose.foundation.HorizontalScrollbar
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -80,7 +81,12 @@ internal fun MessageContent(
         }
 
         if (sources.isNotEmpty()) {
-            SourceArea(sources, viewModel)
+            SourceArea(
+                sources,
+                { viewModel.openLink(it) },
+                { viewModel.openLinkOnBackground(it) },
+                viewModel.horizontalSourceScrollState()
+            )
         }
     }
 }
@@ -88,7 +94,9 @@ internal fun MessageContent(
 @Composable
 private fun SourceArea(
     sources: List<Source>,
-    viewModel: MessageContentViewModel
+    openLink: (String) -> Unit,
+    openLinkOnBackground: (String) -> Unit,
+    horizontalSourceScrollState: ScrollState
 ) {
     Text(
         "Sources",
@@ -108,8 +116,8 @@ private fun SourceArea(
                             .padding(4.dp)
                             .combinedClickable(
                                 enabled = true,
-                                onClick = { viewModel.openLink(source.url) },
-                                onLongClick = { viewModel.openLinkOnBackground(source.url) }
+                                onClick = { openLink(source.url) },
+                                onLongClick = { openLinkOnBackground(source.url) }
                             )
                             .semantics { contentDescription = "$index,${source}" }
                     ) {
@@ -124,7 +132,7 @@ private fun SourceArea(
         }
 
         HorizontalScrollbar(
-            adapter = rememberScrollbarAdapter(viewModel.horizontalSourceScrollState()),
+            adapter = rememberScrollbarAdapter(horizontalSourceScrollState),
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
         )
     }
