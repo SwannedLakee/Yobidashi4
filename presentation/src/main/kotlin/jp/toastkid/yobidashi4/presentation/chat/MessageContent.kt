@@ -84,7 +84,8 @@ internal fun MessageContent(
             Row {
                 sources.forEachIndexed { index, source ->
                     Surface(
-                        elevation = 2.dp
+                        elevation = 2.dp,
+                        modifier = Modifier.padding(4.dp)
                     ) {
                         HoverHighlightRow(
                             modifier = Modifier
