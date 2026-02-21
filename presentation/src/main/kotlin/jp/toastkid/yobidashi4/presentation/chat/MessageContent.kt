@@ -101,7 +101,7 @@ private fun SourceArea(
     Text(
         "Sources",
         fontSize = 16.sp,
-        modifier = Modifier.padding(4.dp).padding(top = 8.dp)
+        modifier = Modifier.padding(top = 12.dp, start = 4.dp, end = 4.dp, bottom = 4.dp)
     )
 
     Box() {
