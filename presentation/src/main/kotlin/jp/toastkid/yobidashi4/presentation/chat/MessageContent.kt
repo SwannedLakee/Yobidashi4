@@ -2,11 +2,15 @@ package jp.toastkid.yobidashi4.presentation.chat
 
 import androidx.compose.foundation.ContextMenuArea
 import androidx.compose.foundation.ContextMenuItem
+import androidx.compose.foundation.HorizontalScrollbar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -82,30 +86,37 @@ internal fun MessageContent(
                 modifier = Modifier.padding(4.dp).padding(top = 8.dp)
             )
 
-            Row {
-                sources.forEachIndexed { index, source ->
-                    Surface(
-                        elevation = 2.dp,
-                        modifier = Modifier.padding(4.dp)
-                    ) {
-                        HoverHighlightRow(
-                            modifier = Modifier
-                                .padding(4.dp)
-                                .combinedClickable(
-                                    enabled = true,
-                                    onClick = { viewModel.openLink(source.url) },
-                                    onLongClick = { viewModel.openLinkOnBackground(source.url) }
-                                )
-                                .semantics { contentDescription = "$index,${source}" }
+            Box() {
+                Row {
+                    sources.forEachIndexed { index, source ->
+                        Surface(
+                            elevation = 2.dp,
+                            modifier = Modifier.padding(4.dp)
                         ) {
-                            LoadIcon(
-                                "https://${source.title}",
-                                modifier = Modifier.padding(horizontal = 4.dp)
-                            )
-                            Text(source.title)
+                            HoverHighlightRow(
+                                modifier = Modifier
+                                    .padding(4.dp)
+                                    .combinedClickable(
+                                        enabled = true,
+                                        onClick = { viewModel.openLink(source.url) },
+                                        onLongClick = { viewModel.openLinkOnBackground(source.url) }
+                                    )
+                                    .semantics { contentDescription = "$index,${source}" }
+                            ) {
+                                LoadIcon(
+                                    "https://${source.title}",
+                                    modifier = Modifier.padding(horizontal = 4.dp)
+                                )
+                                Text(source.title)
+                            }
                         }
                     }
                 }
+
+                HorizontalScrollbar(
+                    adapter = rememberScrollbarAdapter(viewModel.horizontalSourceScrollState()),
+                    modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
+                )
             }
         }
     }
