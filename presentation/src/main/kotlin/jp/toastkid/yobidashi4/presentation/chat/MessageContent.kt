@@ -78,7 +78,7 @@ internal fun MessageContent(
             Text(
                 "Sources",
                 fontSize = 16.sp,
-                modifier = Modifier.padding(4.dp)
+                modifier = Modifier.padding(4.dp).padding(top = 8.dp)
             )
 
             Row {
