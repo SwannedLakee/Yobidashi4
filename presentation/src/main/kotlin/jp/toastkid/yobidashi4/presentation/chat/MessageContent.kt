@@ -75,6 +75,12 @@ internal fun MessageContent(
         }
 
         if (sources.isNotEmpty()) {
+            Text(
+                "Sources",
+                fontSize = 16.sp,
+                modifier = Modifier.padding(4.dp)
+            )
+
             Row {
                 sources.forEachIndexed { index, source ->
                     Surface(
