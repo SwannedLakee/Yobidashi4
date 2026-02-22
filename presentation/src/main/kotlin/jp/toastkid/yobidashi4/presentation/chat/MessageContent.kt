@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.material.Surface
@@ -127,7 +128,7 @@ private fun SourceArea(
                     ) {
                         LoadIcon(
                             "https://${source.title}",
-                            modifier = Modifier.padding(horizontal = 4.dp)
+                            modifier = Modifier.size(32.dp).padding(horizontal = 4.dp)
                         )
                         Text(source.title)
                     }
